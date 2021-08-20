@@ -2,15 +2,15 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-08-20T00:42:23 IST" name="Default suite" finished-at="2021-08-20T00:42:26 IST" duration-ms="3419">
+  <suite started-at="2021-08-20T10:54:55 IST" name="Default suite" finished-at="2021-08-20T10:55:12 IST" duration-ms="16816">
     <groups>
     </groups>
-    <test started-at="2021-08-20T00:42:23 IST" name="Default test" finished-at="2021-08-20T00:42:26 IST" duration-ms="3419">
+    <test started-at="2021-08-20T10:54:55 IST" name="Default test" finished-at="2021-08-20T10:55:12 IST" duration-ms="16816">
       <class name="com.todoistProject.test.Testing">
-        <test-method signature="testToFetchData()[pri:0, instance:com.todoistProject.test.Testing@68c72235]" started-at="2021-08-20T00:42:23 IST" name="testToFetchData" finished-at="2021-08-20T00:42:26 IST" duration-ms="3359" status="PASS">
+        <test-method signature="testToCheckCreateTask()[pri:0, instance:com.todoistProject.test.Testing@68c72235]" started-at="2021-08-20T10:54:55 IST" name="testToCheckCreateTask" finished-at="2021-08-20T10:55:11 IST" duration-ms="16518" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testToFetchData -->
+        </test-method> <!-- testToCheckCreateTask -->
       </class> <!-- com.todoistProject.test.Testing -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->

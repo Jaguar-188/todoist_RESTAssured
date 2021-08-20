@@ -5,7 +5,7 @@
     <classes>
       <class name="com.todoistProject.test.Testing">
         <methods>
-          <include name="testToFetchData"/>
+          <include name="testToCheckCreateTask"/>
         </methods>
       </class> <!-- com.todoistProject.test.Testing -->
     </classes>
