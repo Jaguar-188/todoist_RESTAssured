@@ -10,7 +10,7 @@ import io.restassured.specification.RequestSpecification;
 
 public class Testing {
 	
-	String token = "a8c484f6ab78bb5d8943ed56791c4ce57becff5e";
+	String token = "";
 	String url = "https://api.todoist.com/rest/v1/";
 	@Test
 	public void testToFetchData() {
