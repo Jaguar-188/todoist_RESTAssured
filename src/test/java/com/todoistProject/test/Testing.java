@@ -12,17 +12,17 @@ public class Testing {
 	
 	String token = "a8c484f6ab78bb5d8943ed56791c4ce57becff5e";
 	String url = "https://api.todoist.com/rest/v1/";
-//	@Test
-//	public void testToFetchData() {
-//		
-//		Response resp = RestAssured.given().header("Authorization","Bearer "+token).get(url+"projects");
-//		
-//		System.out.println(resp.getStatusCode());
-//		System.out.println(resp.getTime());
-//		System.out.println(resp.getBody().asString());
-//
-//		Assert.assertEquals(resp.getStatusCode(), 200);
-//	}
+	@Test
+	public void testToFetchData() {
+		
+		Response resp = RestAssured.given().header("Authorization","Bearer "+token).get(url+"projects");
+		
+		System.out.println(resp.getStatusCode());
+		System.out.println(resp.getTime());
+		System.out.println(resp.getBody().asString());
+
+		Assert.assertEquals(resp.getStatusCode(), 200);
+	}
 	
 	@Test
 	public void testToCheckCreateTask() {
