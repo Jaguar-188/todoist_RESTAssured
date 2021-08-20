@@ -90,6 +90,32 @@ public class Testing {
 	@Test
 	public void testToCloseATask() {
 		
+		Response resp =  RestAssured
+			.given()
+				.header("Authorization","Bearer "+token)
+				.header("Content-Type","application/json")
+				.get(url+"tasks/5082085132")
+			.then()
+				.extract()
+				.response();
+		
+		String taskName = resp.jsonPath().getString("content");
+		String status = resp.jsonPath().getString("completed");
+		String id = resp.jsonPath().getString("id");
+		
+		if(taskName.equals("Buy Vegetables") && status.equals("false"));
+		{
+			 RestAssured
+				.given()
+					.header("Authorization","Bearer "+token)
+					.header("Content-Type","application/json")
+					.post(url+"tasks/"+id+"/close")
+				.then()
+					.statusCode(204)
+			 		.log()
+			 		.all();
+		}
+		
 	}
 
 }
