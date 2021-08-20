@@ -1,27 +1,40 @@
 package com.todoistProject.test;
 
+
 import org.json.JSONObject;
+import org.junit.jupiter.api.Assertions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.Assertion;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
+import static org.hamcrest.Matchers.*;
 
 public class Testing {
 	
-	String token = "";
+	String token = "a8c484f6ab78bb5d8943ed56791c4ce57becff5e";
 	String url = "https://api.todoist.com/rest/v1/";
 	@Test
 	public void testToFetchData() {
 		
-		Response resp = RestAssured.given().header("Authorization","Bearer "+token).get(url+"projects");
-		
-		System.out.println(resp.getStatusCode());
-		System.out.println(resp.getTime());
-		System.out.println(resp.getBody().asString());
-
-		Assert.assertEquals(resp.getStatusCode(), 200);
+		RestAssured
+			.given()
+				.header("Authorization","Bearer "+token)
+				.header("Content-Type","application/json")
+				.get(url+"projects")
+			.then()
+				.statusCode(200)
+				.body("[0].name",equalTo("Inbox"))
+				.body("[1].name",equalTo("Welcome 👋"))
+				.body("[2].name",equalTo("Try Boards"))
+				.body("[3].name",equalTo("task"))
+				.body("[4].name",equalTo("test"))
+				.body("[5].name",equalTo("test2"))
+				.body("[6].name",equalTo("test3"))
+				.log()
+				.all();
+				
 	}
 	
 	@Test
@@ -29,26 +42,54 @@ public class Testing {
 		
 		JSONObject jsonObject = new JSONObject();
 		
-		jsonObject.put("content","Buy Water");
-		jsonObject.put("due_string","tomorrow at 11:00");
+		String id = "2270742863";
+		
+		jsonObject.put("content","Go To Temple");
+		jsonObject.put("due_string","tuesday at 11:00");
 		jsonObject.put("due_lang","en");
-		jsonObject.put("priority",3);
+		jsonObject.put("priority",4);
 		
-		RequestSpecification request =  (RequestSpecification) RestAssured.given()
-						.header("Authorization","Bearer "+token)
-						.header("Content-Type","application/json")
-						.body(jsonObject.toString())
-						.when();
-						
+		Response resp = RestAssured
+			.given()
+				.header("Authorization","Bearer "+token)
+				.header("Content-Type","application/json")
+			.and()
+				.body(jsonObject.toString())
+			.when()
+				.post(url+"tasks")
+			.then()
+				.extract()
+				.response();
+			
+		Assertions.assertEquals(200, resp.statusCode());
+		Assertions.assertEquals("Go To Temple", resp.jsonPath().getString("content"));
+		Assertions.assertEquals(id, resp.jsonPath().getString("project_id"));
+	}
+	
+	@Test
+	public void testToGetAnActiveTask() {
 		
-		Response resp = request.post(url+"tasks");
-		System.out.println(resp.getStatusCode());
-		System.out.println(resp.getTime());
-		System.out.println(resp.getBody().asString());
-
-		Assert.assertEquals(resp.getStatusCode(), 200);
+		String id = "2270742863";
+		
+		Response resp =  RestAssured
+		.given()
+			.header("Authorization","Bearer "+token)
+			.header("Content-Type","application/json")
+			.get(url+"tasks/5084126551")
+		.then()
+			.extract()
+			.response();
+		
+		Assertions.assertEquals(200, resp.statusCode());
+		Assertions.assertEquals("false", resp.jsonPath().getString("completed"));
+		Assertions.assertEquals("Buy Water", resp.jsonPath().getString("content"));
+		Assertions.assertEquals(id, resp.jsonPath().getString("project_id"));
 		
 	}
 	
+	@Test
+	public void testToCloseATask() {
+		
+	}
 
 }
