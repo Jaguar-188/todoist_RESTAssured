@@ -8,6 +8,9 @@ import org.testng.annotations.Test;
 import org.testng.asserts.Assertion;
 
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.parsing.Parser;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import static org.hamcrest.Matchers.*;
 
@@ -16,7 +19,7 @@ public class Testing {
 	String token = "a8c484f6ab78bb5d8943ed56791c4ce57becff5e";
 	String url = "https://api.todoist.com/rest/v1/";
 	@Test
-	public void testToFetchData() {
+	public void testToFetchProjectsData() {
 		
 		RestAssured
 			.given()
@@ -38,13 +41,32 @@ public class Testing {
 	}
 	
 	@Test
+	public void testToGetAllActiveTasks() {
+		
+		//int id = 5081847734;
+		//String project_id = "2270742863";
+		
+		RestAssured
+		.given()
+			.header("Authorization","Bearer "+token)
+			.header("Content-Type","application/json")
+			.get(url+"tasks")
+		.then()
+			.statusCode(200)
+			.body("[0].content",equalTo("Buy Milk"))
+//			.body("[0].project_id", equalTo(project_id))	
+			.body("[1].content",equalTo("Buy Books"));
+	}
+	
+	
+	@Test
 	public void testToCheckCreateTask() {
 		
 		JSONObject jsonObject = new JSONObject();
 		
-		String id = "2270742863";
+		String project_id = "2270742863";
 		
-		jsonObject.put("content","Go To Temple");
+		jsonObject.put("content","Go To Home");
 		jsonObject.put("due_string","tuesday at 11:00");
 		jsonObject.put("due_lang","en");
 		jsonObject.put("priority",4);
@@ -62,14 +84,14 @@ public class Testing {
 				.response();
 			
 		Assertions.assertEquals(200, resp.statusCode());
-		Assertions.assertEquals("Go To Temple", resp.jsonPath().getString("content"));
-		Assertions.assertEquals(id, resp.jsonPath().getString("project_id"));
+		Assertions.assertEquals("Go To Home", resp.jsonPath().getString("content"));
+		Assertions.assertEquals(project_id, resp.jsonPath().getString("project_id"));
 	}
 	
 	@Test
 	public void testToGetAnActiveTask() {
 		
-		String id = "2270742863";
+		String project_id = "2270742863";
 		
 		Response resp =  RestAssured
 		.given()
@@ -83,7 +105,52 @@ public class Testing {
 		Assertions.assertEquals(200, resp.statusCode());
 		Assertions.assertEquals("false", resp.jsonPath().getString("completed"));
 		Assertions.assertEquals("Buy Water", resp.jsonPath().getString("content"));
-		Assertions.assertEquals(id, resp.jsonPath().getString("project_id"));
+		Assertions.assertEquals(project_id, resp.jsonPath().getString("project_id"));
+		
+	}
+	
+	@Test
+	public void testToUpdateATask() {
+		
+		JSONObject jsonObject = new JSONObject();
+		
+		String project_id = "2270742863";
+		
+		jsonObject.put("content","Bring Home");
+		jsonObject.put("due_string","Monday at 11:00");
+		jsonObject.put("due_lang","en");
+		jsonObject.put("priority",4);
+		
+		try
+		{
+			RestAssured.defaultParser = Parser.JSON;
+			RestAssured
+					.given()
+						.header("Authorization","Bearer "+token)
+						.header("Content-Type","application/json")
+						.contentType(ContentType.JSON)
+					.and()
+						.body(jsonObject.toString())
+					.when()
+						.post(url+"tasks/5081847734")
+					.then()
+						.assertThat()
+						.statusCode(204)
+						.body("[0].content",equalTo("Bring Home"));
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+				
+		
+		//Assertions.assertEquals(204, resp.statusCode());
+		//Assertions.assertEquals("Bring Banana", resp.jsonPath().getString("content"));
+		//Assertions.assertEquals(project_id, resp.jsonPath().getString("project_id"));
+		//System.out.println(resp.jsonPath().getString("content"));
+		
 		
 	}
 	
@@ -94,16 +161,15 @@ public class Testing {
 			.given()
 				.header("Authorization","Bearer "+token)
 				.header("Content-Type","application/json")
-				.get(url+"tasks/5081988044")
+				.get(url+"tasks/5084623058")
 			.then()
 				.extract()
 				.response();
 		
-		String taskName = resp.jsonPath().getString("content");
 		String status = resp.jsonPath().getString("completed");
 		String id = resp.jsonPath().getString("id");
 		
-		if(taskName.equals("Buy Vegetables") && status.equals("false"));
+		if(status.equals("false"))
 		{
 			 RestAssured
 				.given()
@@ -121,15 +187,19 @@ public class Testing {
 	@Test
 	public void testToReopenATask() {
 		
-		RestAssured
-				.given()
-					.header("Authorization","Bearer "+token)
-					.header("Content-Type","application/json")
-					.post(url+"tasks/5081988044/reopen")
-				.then()
-					.statusCode(204)
-					.log()
-					.all();
+		Response resp =  RestAssured
+			.given()
+				.header("Authorization","Bearer "+token)
+				.header("Content-Type","application/json")
+			.when()
+				.post(url+"tasks/5084623058/reopen")
+			.then()
+				.extract()
+				.response();
+		
+		Assertions.assertEquals(204, resp.statusCode());
+		//Assertions.assertEquals("Go To Library", resp.jsonPath().getString("content"));
+		Assertions.assertEquals("false", resp.jsonPath().getString("completed"));
 		
 	}
 	
