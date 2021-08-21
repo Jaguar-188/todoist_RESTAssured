@@ -94,7 +94,7 @@ public class Testing {
 			.given()
 				.header("Authorization","Bearer "+token)
 				.header("Content-Type","application/json")
-				.get(url+"tasks/5082085132")
+				.get(url+"tasks/5081988044")
 			.then()
 				.extract()
 				.response();
@@ -120,6 +120,32 @@ public class Testing {
 	
 	@Test
 	public void testToReopenATask() {
+		
+		RestAssured
+				.given()
+					.header("Authorization","Bearer "+token)
+					.header("Content-Type","application/json")
+					.post(url+"tasks/5081988044/reopen")
+				.then()
+					.statusCode(204)
+					.log()
+					.all();
+		
+	}
+	
+	
+	@Test
+	public void testToDeleteATask() {
+		
+		RestAssured
+			.given()
+				.header("Authorization","Bearer "+token)
+				.header("Content-Type","application/json")
+				.delete(url+"tasks/5051347544")
+			.then()
+				.statusCode(204)
+				.log()
+				.all();
 		
 	}
 	
