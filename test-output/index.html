@@ -104,7 +104,7 @@
                     <div class="method-list-content passed suite-Default_suite">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Default_suite" title="com.todoistProject.test.Testing" class="method navigator-link" hash-for-method="testToReopenATask">testToReopenATask</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Default_suite" title="com.todoistProject.test.Testing" class="method navigator-link" hash-for-method="testToUpdateATask">testToUpdateATask</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Default_suite -->
@@ -127,9 +127,9 @@
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="testToReopenATask">
-                  </a> <!-- testToReopenATask -->
-                  <span class="method-name">testToReopenATask</span>
+                  <a name="testToUpdateATask">
+                  </a> <!-- testToUpdateATask -->
+                  <span class="method-name">testToUpdateATask</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -137,7 +137,7 @@
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">/tmp/testng-eclipse-131513771/testng-customsuite.xml</span>
+            <span class="header-content">/tmp/testng-eclipse-658544346/testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -148,7 +148,7 @@
     &lt;classes&gt;
       &lt;class name=&quot;com.todoistProject.test.Testing&quot;&gt;
         &lt;methods&gt;
-          &lt;include name=&quot;testToReopenATask&quot;/&gt;
+          &lt;include name=&quot;testToUpdateATask&quot;/&gt;
         &lt;/methods&gt;
       &lt;/class&gt; &lt;!-- com.todoistProject.test.Testing --&gt;
     &lt;/classes&gt;
@@ -192,9 +192,9 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'testToReopenATask')
+data.setCell(0, 1, 'testToUpdateATask')
 data.setCell(0, 2, 'com.todoistProject.test.Testing')
-data.setCell(0, 3, 2592);
+data.setCell(0, 3, 2343);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
@@ -214,7 +214,7 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">5 ignored methods</span>
+            <span class="header-content">7 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="ignored-class-div">
@@ -224,7 +224,11 @@ return data;
                 <br/>
                 <span class="ignored-method-name">testToGetAnActiveTask</span>
                 <br/>
-                <span class="ignored-method-name">testToFetchData</span>
+                <span class="ignored-method-name">testToFetchProjectsData</span>
+                <br/>
+                <span class="ignored-method-name">testToGetAllActiveTasks</span>
+                <br/>
+                <span class="ignored-method-name">testToReopenATask</span>
                 <br/>
                 <span class="ignored-method-name">testToCloseATask</span>
                 <br/>
@@ -242,7 +246,7 @@ return data;
             <div class="chronological-class">
               <div class="chronological-class-name">com.todoistProject.test.Testing</div> <!-- chronological-class-name -->
               <div class="test-method">
-                <span class="method-name">testToReopenATask</span>
+                <span class="method-name">testToUpdateATask</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
