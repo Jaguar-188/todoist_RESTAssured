@@ -16,7 +16,7 @@ import static org.hamcrest.Matchers.*;
 
 public class Testing {
 	
-	String token = "a8c484f6ab78bb5d8943ed56791c4ce57becff5e";
+	String token = "";
 	String url = "https://api.todoist.com/rest/v1/";
 	@Test
 	public void testToFetchProjectsData() {
@@ -116,27 +116,27 @@ public class Testing {
 		
 		String project_id = "2270742863";
 		
-		jsonObject.put("content","Bring Home");
+		jsonObject.put("content","Bring Back");
 		jsonObject.put("due_string","Monday at 11:00");
 		jsonObject.put("due_lang","en");
 		jsonObject.put("priority",4);
 		
 		try
 		{
-			RestAssured.defaultParser = Parser.JSON;
 			RestAssured
 					.given()
 						.header("Authorization","Bearer "+token)
-						.header("Content-Type","application/json")
-						.contentType(ContentType.JSON)
+						//.header("Content-Type","application/json")
+						.contentType("application/json")
 					.and()
+						.contentType("application/json")
 						.body(jsonObject.toString())
 					.when()
 						.post(url+"tasks/5081847734")
 					.then()
 						.assertThat()
 						.statusCode(204)
-						.body("[0].content",equalTo("Bring Home"));
+						.body("[0].content",equalTo("Bring Back"));
 			
 		}
 		catch(Exception e)
