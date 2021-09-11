@@ -15,7 +15,7 @@ public class Todoist {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//Scanner scan = new Scanner(System.in);
-		String token = "a8c484f6ab78bb5d8943ed56791c4ce57becff5e";
+		String token = "";
 		String address = "https://api.todoist.com/rest/v1/";
 		try
 		{
